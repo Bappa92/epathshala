@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.jds.epathshala.persistenceservice.db.model.User;
+import com.jds.epathshala.persistence.db.model.User;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
