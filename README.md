@@ -1,9 +1,9 @@
 # epathshala
 Its a simple project for basic user operation.
->Like creating user,logging in,accessing user data bases user role.
->Here Authentication and authorization ,JWt token is implemented.
->MongoDB is used as backend data base server.
->Tried to use Spring-boot as much as possible.
+>Like creating user,logging in,accessing user data based user roles.
+>For Authentication and Authorization is JWT token based oepration.
+>MongoDB is used as backend database server.
+>Spring-boot is used for rest webservice,mongodb persistence,security framework.
 
 Pre-requisite to run the application:
  >JAVA 1.8
