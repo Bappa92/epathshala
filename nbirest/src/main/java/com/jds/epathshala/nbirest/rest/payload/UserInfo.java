@@ -1,6 +1,6 @@
 package com.jds.epathshala.nbirest.rest.payload;
 
-import com.jds.epathshala.persistenceservice.db.model.User;
+import com.jds.epathshala.persistence.db.model.User;
 
 public class UserInfo {
 	private String name;

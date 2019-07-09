@@ -1,7 +1,11 @@
 package com.jds.epathshala.nbirest.controllers;
 
+import java.text.MessageFormat;
+
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,7 @@ import com.jds.epathshala.nbirest.service.impl.UserInputValidator;
 
 @RestController
 public class AuthenticationController {
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	UserService userService;
@@ -40,6 +45,7 @@ public class AuthenticationController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public ResponseEntity<ApiResponse> register(@Valid @RequestBody SignUpRequest singUpRequest) {
 
+		LOGGER.info("<REST:SIGNUP>Received request to register username:{}", singUpRequest.getMobileNo());
 		if (userInputValidator.validateMobileNo(singUpRequest.getMobileNo())) {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Phone number is already taken!"),
 					HttpStatus.BAD_REQUEST);
@@ -49,22 +55,27 @@ public class AuthenticationController {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Email Address already in use!"),
 					HttpStatus.BAD_REQUEST);
 		}
-		if(userInputValidator.validateProfileType(singUpRequest.getProfileType()))
-		{
+		if (userInputValidator.validateProfileType(singUpRequest.getProfileType())) {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Profile type is not valid!"),
 					HttpStatus.BAD_REQUEST);
 		}
-		if (userService.register(singUpRequest)) {
+		try {
+			userService.register(singUpRequest);
 			return new ResponseEntity<ApiResponse>(new ApiResponse(true, "User registered successfully"),
 					HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity<ApiResponse>(
+					new ApiResponse(false,
+							MessageFormat.format("Some internal error is occured because of {0}", ex.getMessage())),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
 		}
-		return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Some internal error is occured"),
-				HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 
 	@RequestMapping(value = "/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest loginRequest) {
+		LOGGER.info("<REST:SIGNIN>Received request to signin username:{}", loginRequest.getUsername());
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

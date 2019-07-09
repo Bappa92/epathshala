@@ -48,16 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-
-		httpSecurity.csrf().disable()
-				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/signup", "/signin").permitAll().
-				// all other requests need to be authenticated
-				anyRequest().authenticated().and().
-				// make sure we use stateless session; session won't be used to
-				// store user's state.
-				exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authorizeRequests().antMatchers("/signup", "/signin").permitAll().anyRequest()
+                   .authenticated();
+//		httpSecurity.csrf().disable()
+//				// dont authenticate this particular request
+//				.authorizeRequests().antMatchers("/signup", "/signin").permitAll().
+//				// all other requests need to be authenticated
+//				anyRequest().authenticated().and().
+//				// make sure we use stateless session; session won't be used to
+//				// store user's state.
+//				exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// Add our custom JWT security filter
 		httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

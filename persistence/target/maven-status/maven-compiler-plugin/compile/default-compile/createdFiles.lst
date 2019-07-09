@@ -1,1 +1,3 @@
+com\jds\epathshala\persistence\db\model\User.class
 com\jds\epathshala\persistence\repository\UserRepository.class
+com\jds\epathshala\persistence\db\model\Role.class

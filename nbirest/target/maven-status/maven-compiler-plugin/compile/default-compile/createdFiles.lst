@@ -1,13 +1,8 @@
 com\jds\epathshala\nbirest\rest\payload\ProfileType.class
 com\jds\epathshala\nbirest\service\impl\UserServiceImpl$1.class
 com\jds\epathshala\nbirest\rest\payload\SignUpRequest.class
-com\jds\epathshala\nbirest\service\UserService.class
-com\jds\epathshala\nbirest\security\JwtAuthenticationFilter.class
-com\jds\epathshala\nbirest\service\impl\UserServiceImpl.class
+com\jds\epathshala\nbirest\security\JwtAuthenticationEntryPoint.class
 com\jds\epathshala\nbirest\rest\payload\JwtAuthenticationResponse.class
 com\jds\epathshala\nbirest\rest\payload\SignInRequest.class
-com\jds\epathshala\nbirest\controllers\UserController.class
 com\jds\epathshala\nbirest\rest\payload\ApiResponse.class
 com\jds\epathshala\SpringBootHelloWorldApplication.class
-com\jds\epathshala\nbirest\rest\payload\UserInfo.class
-com\jds\epathshala\nbirest\security\JwtTokenProvider.class

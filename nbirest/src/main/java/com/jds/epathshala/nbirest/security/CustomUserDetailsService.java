@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jds.epathshala.persistence.repository.UserRepository;
-import com.jds.epathshala.persistenceservice.db.model.User;
+import com.jds.epathshala.persistence.db.model.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		// Let people login with either mobile no
-		User user = userRepository.findByMobileNo(userName).orElseThrow(
+		User user = userRepository.findByUsername(userName).orElseThrow(
 				() -> new UsernameNotFoundException("User not found with username or email : " + userName));
 
 		return UserPrincipal.create(user);

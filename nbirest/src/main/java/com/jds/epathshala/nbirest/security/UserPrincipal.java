@@ -1,7 +1,7 @@
 package com.jds.epathshala.nbirest.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jds.epathshala.persistenceservice.db.model.User;
+import com.jds.epathshala.persistence.db.model.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,10 +20,15 @@ public class UserPrincipal implements UserDetails {
 
 	private String id;
 
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
 	private String name;
 
 	private String username;
 
+	private String mobileNo;
 	@JsonIgnore
 	private String email;
 
@@ -32,11 +37,12 @@ public class UserPrincipal implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserPrincipal(String string, String name, String username, String email, String password,
+	public UserPrincipal(String id, String name, String username, String mobileNo, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
-		this.id = string;
+		this.id = id;
 		this.name = name;
 		this.username = username;
+		this.mobileNo = mobileNo;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
@@ -44,10 +50,10 @@ public class UserPrincipal implements UserDetails {
 
 	public static UserPrincipal create(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+				.map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
 
-		return new UserPrincipal(user.getId(), user.getName(),user.getMobileNo(), user.getEmail(), user.getPassword(),
-				authorities);
+		return new UserPrincipal(user.getId(), user.getName(), user.getUsername(), user.getMobileNo(), user.getEmail(),
+				user.getPassword(), authorities);
 	}
 
 	public String getId() {

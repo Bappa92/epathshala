@@ -3,6 +3,7 @@ package com.jds.epathshala.persistence.db.model;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -10,13 +11,32 @@ public class User {
 
 	@Id
 	private String id;
+
 	private String name;
+
+	@Indexed(unique = true)
+	private String username;
+
+	@Indexed(unique = true)
 	private String email;
+
+	@Indexed(unique = true)
 	private String mobileNo;
+
 	private String password;
+
 	private Set<Role> roles;
 
-	
+	@Indexed
+	private UserType userType;
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
 
 	public String getId() {
 		return id;
@@ -64,6 +84,14 @@ public class User {
 
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }
