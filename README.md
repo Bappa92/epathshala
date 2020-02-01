@@ -1,6 +1,6 @@
 # epathshala
 Its a simple project for basic user operation:
-1>Like creating user,logging in,accessing user data based user roles.
+1>Like creating user,logging in,accessing user data based on user roles.
 2>For Authentication and Authorization is JWT token based oepration.
 3>MongoDB is used as backend database server.
 4>Spring-boot is used for rest webservice,mongodb persistence,security framework.
